@@ -1,0 +1,12 @@
+<div class="flex flex-row gap-1">
+  @for (region of regions; track region) {
+
+  <button
+    class="btn"
+    (click)="regionInput.emit(region); selectedRegion.set(region)"
+    class="btn {{ selectedRegion() === region ? 'btn-primary' : 'btn-outline-primary' }}"
+  >
+    {{ region }}
+  </button>
+  }
+</div>

@@ -1,1 +1,8 @@
-<country-list-component />
+<app-country-buttons-input-component (regionInput)="region.set($event)" />
+
+<country-list-component
+  [countries]="countryResource.value() ?? []"
+  [errorMessage]="countryResource.error()"
+  [isEmpty]="countryResource.value()?.length === 0"
+  [isLoading]="countryResource.isLoading()"
+/>

@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop'
-import { CountrySearchInputComponent } from "../../components/country-search-input-component/country-search-input-component";
-import { CountryListComponent } from "../../components/country-list-component/country-list-component";
-import { CountryService } from '../../services/country.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
+import { CountrySearchInputComponent } from '../../components/country-search-input-component/country-search-input-component';
+import { CountryListComponent } from '../../components/country-list-component/country-list-component';
+import { CountryService } from '../../services/country.service';
 
 @Component({
   selector: 'by-capital-page',
@@ -14,18 +20,20 @@ import { of } from 'rxjs';
 export class ByCapitalPage {
   countryService = inject(CountryService);
 
+  activatedRoute = inject(ActivatedRoute);
+
   query = signal<string>('');
 
-    countryResource = rxResource({
+  countryResource = rxResource({
     // Ingresamos la query que viene desde el output del componente hijo
-    request: () => ({ query: this.query()}),
+    request: () => ({ query: this.query() }),
     // se desestructura la request anterior que contiene el valor de la query
     loader: ({ request }) => {
-      if(!request.query) return of([]);
-      // se retorna el primer valor obtenido 
+      if (!request.query) return of([]);
+      // se retorna el primer valor obtenido
       return this.countryService.serchByCapital(request.query);
-    } 
-  })
+    },
+  });
 
   // countryResource = resource({
   //   // Ingresamos la query que viene desde el output del componente hijo
@@ -33,11 +41,11 @@ export class ByCapitalPage {
   //   // se desestructura la request anterior que contiene el valor de la query
   //   loader: async ({ request}) => {
   //     if(!request.query) return [];
-  //     // se retorna el primer valor obtenido 
+  //     // se retorna el primer valor obtenido
   //     return await firstValueFrom(
   //       this.countryService.serchByCapital(request.query),
   //     )
-  //   } 
+  //   }
   // })
 
   // isLoading = signal<boolean>(false);
@@ -63,5 +71,4 @@ export class ByCapitalPage {
   //     }
   //   })
   // }
-
 }
