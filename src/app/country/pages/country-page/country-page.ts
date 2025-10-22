@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CountryService } from '../../services/country.service';
+import { SharedNotFound } from '../../../shared/components/shared-not-found/shared-not-found';
+import { CountryInformation } from './country-information/country-information';
 
 @Component({
   selector: 'country-page',
-  imports: [],
+  imports: [SharedNotFound, CountryInformation],
   templateUrl: './country-page.html',
 })
 export class CountryPage {

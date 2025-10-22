@@ -1,0 +1,33 @@
+<section>
+  <h1 class="text-5xl font-bold">{{ country().name }}</h1>
+  <h1 class="text-xl font-thin">
+    Población: {{ country().population | number }}
+  </h1>
+
+  <div class="stat">
+    <div class="stat-figure text-secondary">
+      <div class="avatar avatar-online">
+        <div class="w-20 rounded-full">
+          <img [src]="country().coatOfArms" />
+        </div>
+      </div>
+    </div>
+    <div class="stat-value">Bordes: {{ country().borders }}</div>
+    <div class="stat-value">Area: {{ country().area | number }}</div>
+    <div class="stat-desc text-secondary">
+      Sub Región: {{ country().subregion }}
+    </div>
+  </div>
+</section>
+
+<section>
+  <figure class="diff aspect-video" tabindex="0">
+    <div class="diff-item-1" role="img" tabindex="0">
+      <img [alt]="country().name" [src]="country().flagSvg" />
+    </div>
+    <div class="diff-item-2" role="img">
+      <img class="blur-sm" [alt]="country().name" [src]="country().flagSvg" />
+    </div>
+    <div class="diff-resizer"></div>
+  </figure>
+</section>
