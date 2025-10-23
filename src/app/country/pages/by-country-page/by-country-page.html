@@ -1,9 +1,12 @@
-<country-search-input-component (searchValue)="query.set($event)" placeholder="Buscar Por País"/>
+<country-search-input-component
+  (searchValue)="query.set($event)"
+  [initialValue]="query()"
+  placeholder="Buscar Por País"
+/>
 
-
-    <country-list-component 
-        [countries]="countryResource.value() ?? []"
-        [errorMessage]="countryResource.error()"
-        [isEmpty]="countryResource.value()?.length === 0"
-        [isLoading]="countryResource.isLoading()"
-    />
+<country-list-component
+  [countries]="countryResource.value() ?? []"
+  [errorMessage]="countryResource.error()"
+  [isEmpty]="countryResource.value()?.length === 0"
+  [isLoading]="countryResource.isLoading()"
+/>

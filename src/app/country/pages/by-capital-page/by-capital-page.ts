@@ -4,7 +4,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { CountrySearchInputComponent } from '../../components/country-search-input-component/country-search-input-component';
@@ -21,8 +21,11 @@ export class ByCapitalPage {
   countryService = inject(CountryService);
 
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
 
-  query = signal<string>('');
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+
+  query = signal<string>(this.queryParam);
 
   countryResource = rxResource({
     // Ingresamos la query que viene desde el output del componente hijo
@@ -30,6 +33,13 @@ export class ByCapitalPage {
     // se desestructura la request anterior que contiene el valor de la query
     loader: ({ request }) => {
       if (!request.query) return of([]);
+
+      this.router.navigate(['/country/by-capital'], {
+        queryParams: {
+          query: request.query,
+        },
+      });
+
       // se retorna el primer valor obtenido
       return this.countryService.serchByCapital(request.query);
     },
